@@ -7,13 +7,22 @@ output: html_document
 In this assignment we make use of a personal activity monitoring device which collects data at 5 minute intervals throughout the day. The data consists of two months of data from an anonymous individual collected during the months of October and November, 2012 and includes the number of steps taken in 5 minute intervals each day.
 
 ### Loading and preprocessing the data
-RStudio will look for your dataset within the default working directory. You can check this with the **getwd()** command. In case your dataset is not within this working directory, you can change the working directory with the **setwd()** command.
+Before we read in the dataset to RStudio, we first check whether the .csv file exists in our working directory. If not, we have to download the data file first from the internet and unzip the file.
+
+```r
+setwd("C:/Users/u0058947/Documents/")
+
+if (!file.exists("activity.csv")) {
+download.file("https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip",destfile = "C://Users/u0058947/Documents/repdata-data-activity.zip")
+
+unzip(zipfile = "repdata-data-activity.zip",overwrite = TRUE)
+}
+```
 
 The dataset can subsequently be loaded into RStudio with the **read.csv()** command. We will call the dataset *repdata*. Including other arguments such as *header* or *sep* are not necessary as the default settings suffice.
 
 
 ```r
-setwd("C:/Users/u0058947/Documents/repdata-data-activity")
 repdata = read.csv("activity.csv")
 ```
 
@@ -262,6 +271,6 @@ plot(weekendTotal,
      type="l",ylim=c(0,250))
 ```
 
-![plot of chunk unnamed-chunk-15](figure/unnamed-chunk-15-1.png) 
+![plot of chunk unnamed-chunk-16](figure/unnamed-chunk-16-1.png) 
 
 The daily activity pattern for either "weekday" or "weekend" have a similar pattern, though weekdays are generally more active than weekends around the 100th interval.
